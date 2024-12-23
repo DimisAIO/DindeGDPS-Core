@@ -6,7 +6,8 @@ $filterUsernames = 2; // 0 = Disabled, 1 = Checks if the username is word, 2 = C
 $bannedUsernames = [ // Add words to ban if it is a username/if it is in a username
 	'RobTop',
 	'nig',
-	'fag'
+	'fag',
+	'survivals'
 ];
 
 $filterClanNames = 2; // 0 = Disabled, 1 = Checks if the clan name is word, 2 = Checks if the clan name contains word
@@ -15,12 +16,16 @@ $bannedClanNames = [ // Add words to ban if it is a clan name/if it is in a clan
 	'Administration',
 	'Moderation',
 	'nig',
-	'fag'
+	'fag',
+	'Admin',
+	'Admins',
+	'Mods'
 ];
 
 $filterClanTags = 2; // 0 = Disabled, 1 = Checks if the clan tag is word, 2 = Checks if the clan tag contains word
 $bannedClanTags = [ // Add words to ban if it is a clan tag/if it is in a clan tag
 	'ADMIN',
+	'GDPS',
 	'MOD',
 	'nig',
 	'fag'
