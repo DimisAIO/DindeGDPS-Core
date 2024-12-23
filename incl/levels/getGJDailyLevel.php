@@ -11,6 +11,36 @@ $gs = new mainLib();
 $gh = new generateHash();
 $type = !empty($_POST["type"]) ? $_POST["type"] : (!empty($_POST["weekly"]) ? $_POST["weekly"] : 0);
 $current = time();
+
+// TODO: Use mysql instead of static files!
+$dailyTimeFile = __DIR__ . "/../../config/dailyTime.txt";
+$weeklyTimeFile = __DIR__ . "/../../config/weeklyTime.txt";
+$dailyLevelFile = __DIR__ . "/../../config/dailyLevel.txt";
+$weeklyLevelFile = __DIR__ . "/../../config/weeklyLevel.txt";
+if($dailyRoulette && $type < 2) {
+	$levelPath = $type == 0 ? $dailyLevelFile : $weeklyLevelFile;
+	$timePath = $type == 0 ? $dailyTimeFile : $weeklyTimeFile;
+	
+	$compare = file_get_contents($timePath);
+	$compare = $compare - $current;
+
+	if($compare > 0) {
+			echo file_get_contents($levelPath) . "|" . $compare;
+			exit;
+	}
+	
+	$query = $db->prepare("SELECT feaID FROM dailyfeatures WHERE type = :type");
+	$query->execute([':type' => $type]);
+	$levels = $query->fetchAll();
+	$feaID = rand(0, count($levels) -1);
+	$feaID = $levels[$feaID]["feaID"] + ($type * 100000);
+	$tlfuck = $type == 0 ? 86400 : 604800;
+	file_put_contents($levelPath, $feaID);
+	file_put_contents($timePath, $current + $tlfuck);
+	echo $feaID . "|" . $tlfuck; // fuck
+	exit;
+}
+
 switch($type) {
 	case 0:
 	case 1:
