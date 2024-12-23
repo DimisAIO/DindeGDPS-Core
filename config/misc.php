@@ -6,7 +6,7 @@
 	False - Order map-packs by their creation date (newest to oldest)
 */
 
-$orderMapPacksByStars = true;
+$orderMapPacksByStars = false;
 
 /*
 	SAKUJES
@@ -17,7 +17,7 @@ $orderMapPacksByStars = true;
 	False - Keep leaderboards normal on April Fools
 */
 
-$sakujes = true;
+$sakujes = false;
 
 /*
 	Count unlisted rated levels in the creator points calculation (cron.php / fixcps.php)
@@ -44,7 +44,7 @@ $unlistedCreatorPoints = false;
 	$maxAccountCommentLength - Maximum profile comment length, default is 140
 */
 
-$enableCommentLengthLimiter = true;
+$enableCommentLengthLimiter = false;
 $maxCommentLength = 100;
 $maxAccountCommentLength = 140;
 
@@ -168,7 +168,7 @@ $specialCommentLikes = [
 	False - Don't show unlisted levels
 */
 
-$unlistedLevelsForAdmins = false;
+$unlistedLevelsForAdmins = true;
 
 /*
 	Show rated levels in sent tab
@@ -202,5 +202,5 @@ $moderatorsListInGlobal = false;
 	False — Cron should run manually in dashboard
 */
 
-$automaticCron = false;
+$automaticCron = true;
 ?>
