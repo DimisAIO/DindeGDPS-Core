@@ -53,7 +53,7 @@ class Cron {
 		");
 		$query->execute();
 		$levelstuff = $query->fetch();
-		$stars = $levelstuff['stars'];
+		$stars = $levelstuff['stars'] + 50; // DindeGDPS Lite (Subzero) and DindeGDPS World (Coming soon...)
 		$coins = $levelstuff['coins'];
 		$demons = $levelstuff['demons'];
 		$moons = $levelstuff['moons']; 
@@ -65,7 +65,7 @@ class Cron {
 			$getUser->execute([':userID' => $ban['userID']]);
 			$getUser = $getUser->fetch();
 			$maxText = 'MAX: ⭐'.$stars.' • 🌙'.$moons.' • 👿'.$demons.' • 🪙'.$coins.' | USER: ⭐'.$getUser['stars'].' • 🌙'.$getUser['moons'].' • 👿'.$getUser['demons'].' • 🪙'.$getUser['userCoins'];
-			$gs->banPerson(0, $ban['userID'], $maxText, 0, 1, 2147483647);
+			if($ban['userID'] > 50) $gs->banPerson(0, $ban['userID'], $maxText, 0, 1, 2147483647); // Safe bet for veterans, I hope :(
 		}
 		$gs->logAction($accountID, 39, $stars, $coins, $demons, $moons, count($query));
 		return true;
