@@ -65,6 +65,14 @@ $maxAccountCommentLength = 140;
 $oldDailyWeekly = false;
 
 /*
+	Do you have a small GDPS? This option is recommended, as dailies and weeklies are picked randomly, instead of picking the last daily/weekly level added!
+ 	True : Randomly choose levels
+  	False: Old System 
+*/
+
+$dailyRoulette = true;
+
+/*
     Minimum and Maximum Game versions
 
     Set both to 0 to disable
