@@ -16,6 +16,8 @@ $inc = !empty($_POST["inc"]) && $_POST["inc"];
 $ip = $gs->getIP();
 $binaryVersion = !empty($_POST["binaryVersion"]) ? ExploitPatch::number($_POST["binaryVersion"]) : 0;
 $feaID = 0;
+$dailyLevelFile = __DIR__ . "/../../config/dailyLevel.txt";
+$weeklyLevelFile = __DIR__ . "/../../config/weeklyLevel.txt";
 switch($levelID) {
 	case -1: // Daily level
 		if(!$dailyRoulette || !file_exists($dailyLevelFile)) {
