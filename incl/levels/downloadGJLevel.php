@@ -18,19 +18,33 @@ $binaryVersion = !empty($_POST["binaryVersion"]) ? ExploitPatch::number($_POST["
 $feaID = 0;
 switch($levelID) {
 	case -1: // Daily level
-		$query = $db->prepare("SELECT feaID, levelID FROM dailyfeatures WHERE timestamp < :time AND type = 0 ORDER BY timestamp DESC LIMIT 1");
-		$query->execute([':time' => time()]);
-		$result = $query->fetch();
-		$levelID = $result["levelID"];
-		$feaID = $result["feaID"];
+		if(!$dailyRoulette || !file_exists($dailyLevelFile)) {
+			$query = $db->prepare("SELECT feaID, levelID FROM dailyfeatures WHERE timestamp < :time AND type = 0 ORDER BY timestamp DESC LIMIT 1");
+			$query->execute([':time' => time()]);
+			$result = $query->fetch();
+			$levelID = $result["levelID"];
+			$feaID = $result["feaID"];
+		} else {
+			$feaID = file_get_contents($dailyLevelFile);
+			$query = $db->prepare("SELECT levelID FROM dailyfeatures WHERE feaID=:fid");
+			$query->execute([':fid' => $feaID]);
+			$levelID = $query->fetchColumn();
+		}
 		$daily = 1;
 		break;
 	case -2: // Weekly level
-		$query = $db->prepare("SELECT feaID, levelID FROM dailyfeatures WHERE timestamp < :time AND type = 1 ORDER BY timestamp DESC LIMIT 1");
-		$query->execute([':time' => time()]);
-		$result = $query->fetch();
-		$levelID = $result["levelID"];
-		$feaID = $result["feaID"] + 100000;
+		if(!$dailyRoulette || !file_exists($weeklyLevelFile)) {
+			$query = $db->prepare("SELECT feaID, levelID FROM dailyfeatures WHERE timestamp < :time AND type = 1 ORDER BY timestamp DESC LIMIT 1");
+			$query->execute([':time' => time()]);
+			$result = $query->fetch();
+			$levelID = $result["levelID"];
+			$feaID = $result["feaID"] + 100001;
+		} else {
+			$feaID = file_get_contents($weeklyLevelFile);
+			$query = $db->prepare("SELECT levelID FROM dailyfeatures WHERE feaID=:fid");
+			$query->execute([':fid' => $feaID - 100001]);
+			$levelID = $query->fetchColumn();
+		}
 		$daily = 1;
 		break;
 	case -3: // Event level
