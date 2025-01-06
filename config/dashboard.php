@@ -101,4 +101,16 @@ $disallowReuploadingNotUserLevels = true;
 
 $useCobalt = true;
 $cobaltAPI[] = 'https://cobalt.gcs.icu';
+
+/*
+	Geometry Dash icons renderer Server
+	
+	Dashboard shows icons of players, therefore it requires some server to get icons
+	
+	$iconsRendererServer — what server to use
+	
+	If gdicon.oat.zone doesn't work for you for some reason, you can use icons.gcs.icu
+*/
+
+$iconsRendererServer = 'https://gdicon.oat.zone';
 ?>
